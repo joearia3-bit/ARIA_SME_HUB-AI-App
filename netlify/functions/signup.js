@@ -1,4 +1,4 @@
-// ARIA HUB - sign-up. Saves an email and/or phone to the Supabase "accounts" table.
+// ARIA_SME_HUB-AI - sign-up. Saves an email and/or phone to the Supabase "accounts" table.
 // Secret keys are read from Netlify settings, never written in this file.
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,8 +36,8 @@ exports.handler = async (event) => {
   }
 
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_ANON_KEY;
-  if (!url || !key) {
+  const key = process.env.SUPABASE_SERVICE_KEY;
+if (!url || !key) {
     return json(500, { error: 'The sign-up service is not set up yet.' });
   }
 
