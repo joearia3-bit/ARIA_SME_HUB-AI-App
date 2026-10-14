@@ -444,7 +444,7 @@
       var data = await res.json().catch(function () { return {}; });
       if (res.ok && data.answer) {
         askMsg.textContent = '';
-        answerBox.textContent = data.answer;
+        answerBox.textContent = data.answer.replace(/\*\*/g, '');
         answerBox.style.display = 'block';
       } else {
         setMsg(askMsg, data.error || 'The AI could not answer right now. Please try again.', false);
