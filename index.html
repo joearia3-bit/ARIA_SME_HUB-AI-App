@@ -1,109 +1,460 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>BLESSED - Build Anything | BSP Pay K60 | PNG</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<meta name="theme-color" content="#FFD700">
-<style>*{-webkit-tap-highlight-color:transparent}body{background:#080808;color:white;font-family:system-ui;--c1:#FFD700;--c2:#B8860B}.touch-btn{min-height:48px}</style>
-</head><body class="antialiased">
-<div class="min-h-screen flex flex-col">
-<nav class="flex justify-between items-center p-4 lg:px-10 border-b border-white/10 sticky top-0 bg-black/80 backdrop-blur z-40">
-<div class="flex gap-3 items-center"><div class="w-10 h-10 rounded-xl flex items-center justify-center font-black text-black" style="background:linear-gradient(135deg,var(--c1),var(--c2))">B</div><div><b class="tracking-[0.2em]">BLESSED</b><p class="text-[8px] text-yellow-500 tracking-widest">BIRD OF PARADISE • BSP SECURE</p></div></div>
-<div class="flex gap-2 items-center"><span class="hidden md:block text-[10px] bg-white/10 px-3 py-1.5 rounded-full">📱💻📲 All Devices</span><span class="hidden md:block text-[10px] bg-green-500/20 text-green-400 px-3 py-1.5 rounded-full border border-green-500/30">🔒 BSP Secure</span><button class="bg-white text-black px-4 py-2 rounded-full font-bold text-xs">Help</button></div>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ARIA HUB</title>
+<style>
+  :root {
+    --blue: #1f5fd6;
+    --navy: #0d2b55;
+    --green: #1fa35b;
+    --orange: #f57c1f;
+    --purple: #7b3fd1;
+    --yellow: #ffd23f;
+    --bg: #f3f6fb;
+    --card: #ffffff;
+    --text: #1b2433;
+    --muted: #6b7689;
+    --border: #dfe5ef;
+    --err: #b3261e;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .app {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding-bottom: 96px;
+  }
+  header.top {
+    background: #fff;
+    padding: 14px 16px 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-weight: 800; font-size: 1.6rem; color: var(--navy); letter-spacing: 0.5px; }
+  .logo span { color: var(--blue); }
+  .tagline { font-size: 0.8rem; color: var(--muted); }
+  .screen { display: none; padding: 16px; }
+  .screen.active { display: block; }
+  h1 { font-size: 1.4rem; margin: 4px 0 8px; }
+  h2 { font-size: 1.1rem; margin: 18px 0 8px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+  .hero {
+    border-radius: 14px;
+    padding: 16px;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .hero.blue { background: linear-gradient(135deg, #1f5fd6, #3b82f6); }
+  .hero.green { background: linear-gradient(135deg, #1fa35b, #2ecc71); }
+  .hero h3 { margin: 0 0 6px; font-size: 1.15rem; }
+  .hero p { margin: 0 0 12px; font-size: 0.9rem; }
+  .btn {
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--blue);
+    color: #fff;
+    min-height: 44px;
+  }
+  .btn.white { background: #fff; color: var(--blue); }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  .search {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #fff;
+    color: var(--text);
+  }
+  input[type="text"], input[type="email"], input[type="tel"] {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    background: #fff;
+    color: var(--text);
+  }
+  label { font-size: 0.9rem; font-weight: 600; display: block; margin: 8px 0 4px; }
+  .grid4 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .tile {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  .dot {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin: 0 auto 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.1rem;
+  }
+  .row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
+  .prod {
+    min-width: 150px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+  .prod .img { height: 84px; border-radius: 8px; margin-bottom: 8px; background: linear-gradient(135deg, #f0d9b5, #c9e3c2); }
+  .prod b { display: block; margin-bottom: 2px; }
+  .price { color: var(--green); font-weight: 700; }
+  .note { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+  .msg { font-size: 0.9rem; margin-top: 8px; min-height: 1.2em; }
+  .msg.ok { color: var(--green); font-weight: 600; }
+  .msg.err { color: var(--err); font-weight: 600; }
+  .answer {
+    white-space: pre-wrap;
+    background: #f0f5ff;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+    display: none;
+    font-size: 0.95rem;
+  }
+  .preview { max-width: 100%; border-radius: 10px; margin-top: 10px; display: none; }
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  .menu-item small { display: block; color: var(--muted); font-size: 0.8rem; }
+  .soon { color: var(--muted); font-size: 0.8rem; }
+  nav.bottom {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 6px 0 calc(6px + env(safe-area-inset-bottom, 0px));
+    z-index: 10;
+  }
+  nav.bottom button {
+    background: none;
+    border: none;
+    font-size: 0.72rem;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 4px 6px;
+    min-width: 56px;
+  }
+  nav.bottom button.on { color: var(--blue); font-weight: 700; }
+  nav.bottom .plus {
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    font-size: 1.8rem;
+    line-height: 54px;
+    padding: 0;
+    margin-top: -18px;
+    box-shadow: 0 4px 10px rgba(31, 95, 214, 0.4);
+  }
+  nav.bottom .plus.on { color: #fff; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="top">
+    <div class="logo">ARIA <span>HUB</span></div>
+    <div class="tagline">Your Opportunity. Our PNG.</div>
+  </header>
+
+  <!-- HOME -->
+  <section id="home" class="screen active">
+    <h1>Welcome! 👋</h1>
+    <p class="note">Your next opportunity is just a tap away.</p>
+    <input class="search" type="text" placeholder="Search products, services...">
+
+    <div class="hero blue" style="margin-top:14px">
+      <h3>SME Hub</h3>
+      <p>Explore business opportunities, get advice and grow your skills.</p>
+      <button class="btn white" data-go="sme">Open SME Hub →</button>
+    </div>
+    <div class="hero green">
+      <h3>Market Hub</h3>
+      <p>Buy, sell and promote products and services.</p>
+      <button class="btn white" data-go="market">Open Market Hub →</button>
+    </div>
+
+    <h2>Featured Products</h2>
+    <div class="row">
+      <div class="prod"><div class="img"></div><b>Fresh Coffee Beans</b><span class="price">K 45/kg</span><div class="note">Port Moresby</div></div>
+      <div class="prod"><div class="img"></div><b>Handmade Basket</b><span class="price">K 80</span><div class="note">Central</div></div>
+      <div class="prod"><div class="img"></div><b>Fresh Vegetables</b><span class="price">K 20/bag</span><div class="note">Gulf</div></div>
+    </div>
+    <p class="note">Sample listings for the layout. Real sellers join in a later version.</p>
+  </section>
+
+  <!-- SME HUB -->
+  <section id="sme" class="screen">
+    <h1>SME Hub</h1>
+    <div class="hero blue">
+      <h3>Turn your idea into a business</h3>
+      <p>Get guidance, tools and opportunities to grow.</p>
+      <button class="btn white" data-go="ask">Explore Opportunities</button>
+    </div>
+
+    <div class="grid4">
+      <div class="tile"><div class="dot" style="background:var(--yellow);color:#333">💡</div><b>Business Ideas</b><div class="note">Find what works in PNG</div></div>
+      <div class="tile" data-go="ask" style="cursor:pointer"><div class="dot" style="background:var(--purple)">🤖</div><b>AI Assistant</b><div class="note">Get advice on your item</div></div>
+      <div class="tile"><div class="dot" style="background:var(--orange)">🎓</div><b>Training</b><div class="note">Learn and improve</div></div>
+      <div class="tile"><div class="dot" style="background:var(--green)">📄</div><b>Resources</b><div class="note">Templates and guides</div></div>
+    </div>
+
+    <div class="card" id="ask">
+      <h2 style="margin-top:0">Ask the AI about your item</h2>
+      <label for="photo">1. Choose a photo of your item</label>
+      <input id="photo" type="file" accept="image/*">
+      <img id="preview" class="preview" alt="Your item">
+
+      <label for="question">2. What do you want to know?</label>
+      <input id="question" type="text" placeholder="What is this worth?">
+      <button id="askBtn" class="btn">Ask AI</button>
+      <div id="askMsg" class="msg"></div>
+      <div id="answer" class="answer"></div>
+      <p class="note">The AI can make mistakes. Check important prices with local sellers. It will tell you when it is not sure.</p>
+    </div>
+  </section>
+
+  <!-- MARKET HUB -->
+  <section id="market" class="screen">
+    <h1>Market Hub</h1>
+    <input class="search" type="text" placeholder="Search products or sellers...">
+
+    <h2>Categories</h2>
+    <div class="grid4">
+      <div class="tile"><div class="dot" style="background:var(--orange)">🍲</div><b>Food &amp; Drinks</b></div>
+      <div class="tile"><div class="dot" style="background:#e11d74">👗</div><b>Fashion &amp; Beauty</b></div>
+      <div class="tile"><div class="dot" style="background:var(--purple)">📱</div><b>Electronics</b></div>
+      <div class="tile"><div class="dot" style="background:#1aa6c9">🏠</div><b>Home &amp; Living</b></div>
+      <div class="tile"><div class="dot" style="background:var(--green)">🧺</div><b>Crafts &amp; Gifts</b></div>
+      <div class="tile"><div class="dot" style="background:#0f9d8f">🛠️</div><b>Services</b></div>
+    </div>
+
+    <h2>Top Deals</h2>
+    <div class="card">
+      <b>Organic Vanilla Beans</b>
+      <div class="price">K 120</div>
+      <div class="note">Madang</div>
+    </div>
+    <p class="note">Buying and selling through the app comes in Version 2.</p>
+  </section>
+
+  <!-- MESSAGES -->
+  <section id="messages" class="screen">
+    <h1>Messages</h1>
+    <div class="card">
+      <p>Chat with buyers and sellers is coming in Version 2.</p>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="profile" class="screen">
+    <h1>Profile</h1>
+
+    <div class="card">
+      <h2 style="margin-top:0">Create your account</h2>
+      <p class="note">Enter an email, a phone number, or both.</p>
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="email" placeholder="you@example.com">
+      <label for="phone">Phone number</label>
+      <input id="phone" type="tel" autocomplete="tel" placeholder="+675 7000 0000">
+      <button id="signupBtn" class="btn">Sign up</button>
+      <div id="signupMsg" class="msg"></div>
+    </div>
+
+    <div class="card">
+      <div class="menu-item"><div>My Business<small>Manage your listings</small></div><span class="soon">Version 2</span></div>
+      <div class="menu-item"><div>My Orders<small>Track your orders</small></div><span class="soon">Version 2</span></div>
+      <div class="menu-item"><div>My Wallet<small>View earnings and balance</small></div><span class="soon">Version 2</span></div>
+      <div class="menu-item"><div>Messages<small>Chat with buyers and sellers</small></div><span class="soon">Version 2</span></div>
+      <div class="menu-item" style="border-bottom:none"><div>Settings<small>App preferences</small></div><span class="soon">Soon</span></div>
+    </div>
+  </section>
+
+  <!-- ASK (opened from the + button and tiles) -->
+  <section id="ask-screen" class="screen"></section>
+
+</div>
+
+<nav class="bottom">
+  <button data-go="home">🏠<br>Home</button>
+  <button data-go="market">🛍️<br>Market</button>
+  <button class="plus" data-go="ask" aria-label="Ask AI about an item">+</button>
+  <button data-go="messages">💬<br>Messages</button>
+  <button data-go="profile">👤<br>Profile</button>
 </nav>
 
-<div class="flex-1 grid lg:grid-cols-2 gap-0">
-<div class="p-4 md:p-10 space-y-5">
-<div class="bg-gradient-to-r from-yellow-500/10 to-transparent border border-yellow-500/20 rounded-2xl p-3 flex gap-3 items-center"><span class="text-xl">🦅</span><div><b class="text-xs">3 Steps: Idea → Color → Deploy K60</b><p class="text-[11px] text-white/60">Any idea, any color, any device - BSP Secure Pay</p></div></div>
-
-<div class="bg-white/[0.06] border border-white/10 rounded-3xl p-5">
-<div class="flex gap-2 items-center mb-3"><div class="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center text-xs font-black">1</div><b>Your Idea</b><span class="text-[10px] text-white/40">Tok Pisin OK</span></div>
-<textarea id="idea" class="w-full bg-black border-2 border-white/10 rounded-2xl p-4 h-28 outline-none focus:border-yellow-500 text-[15px]" placeholder="Mi laikim... buai shop, pink salon, trade store - anything"></textarea>
-<div class="flex gap-2 mt-3 flex-wrap"><button class="text-[11px] bg-white/10 px-3 py-2 rounded-full">🎤 Speak</button><button class="text-[11px] bg-white/10 px-3 py-2 rounded-full">📸 Photo</button><button onclick="useEx('Buai Market delivery app')" class="text-[11px] bg-white/10 px-3 py-2 rounded-full">🌿 Buai</button><button onclick="useEx('Pink hair salon booking app')" class="text-[11px] bg-white/10 px-3 py-2 rounded-full">💇 Pink Salon</button></div>
-</div>
-
-<div class="bg-white/[0.06] border border-white/10 rounded-3xl p-5">
-<div class="flex gap-2 items-center mb-4"><div class="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center text-xs font-black">2</div><b>Pick Any Color - No Rules</b></div>
-<div class="grid grid-cols-4 md:grid-cols-8 gap-3">
-<button onclick="pick('#FF2D92','#FF1493','Pink')" class="touch-btn"><div class="w-full h-12 rounded-2xl" style="background:#FF2D92"></div><p class="text-[10px] mt-1">Pink</p></button>
-<button onclick="pick('#00D9FF','#0096FF','Blue')" class="touch-btn"><div class="w-full h-12 rounded-2xl" style="background:#00D9FF"></div><p class="text-[10px] mt-1">Blue</p></button>
-<button onclick="pick('#00FF88','#00CC66','Green')" class="touch-btn"><div class="w-full h-12 rounded-2xl" style="background:#00FF88"></div><p class="text-[10px] mt-1">Green</p></button>
-<button onclick="pick('#FFD700','#B8860B','Gold')" class="touch-btn"><div class="w-full h-12 rounded-2xl border-2 border-white" style="background:#FFD700"></div><p class="text-[10px] mt-1">Gold ★</p></button>
-<button onclick="pick('#FF3B30','#CC0000','Red')" class="touch-btn"><div class="w-full h-12 rounded-2xl" style="background:#FF3B30"></div><p class="text-[10px] mt-1">Red</p></button>
-<button onclick="pick('#AF52DE','#7D2AE8','Purple')" class="touch-btn"><div class="w-full h-12 rounded-2xl" style="background:#AF52DE"></div><p class="text-[10px] mt-1">Purple</p></button>
-<button onclick="pick('#FF8C00','#FF5E00','Orange')" class="touch-btn"><div class="w-full h-12 rounded-2xl" style="background:#FF8C00"></div><p class="text-[10px] mt-1">Orange</p></button>
-<label class="touch-btn cursor-pointer"><div class="w-full h-12 rounded-2xl bg-white/10 border-2 border-dashed flex items-center justify-center">+</div><p class="text-[10px] mt-1">Custom</p><input type="color" class="hidden" onchange="pick(this.value,this.value,'Custom '+this.value)"></label>
-</div>
-<div class="mt-3 text-xs bg-black rounded-full px-3 py-2 inline-flex gap-2 items-center"><div id="dot" class="w-4 h-4 rounded-full" style="background:#FFD700"></div> Color: <b id="cname">Gold</b></div>
-</div>
-
-<div class="bg-white/[0.06] border border-white/10 rounded-3xl p-5">
-<div class="flex gap-2 items-center mb-3"><div class="w-7 h-7 rounded-full text-black flex items-center justify-center text-xs font-black" style="background:linear-gradient(135deg,var(--c1),var(--c2))">3</div><b>Build & Deploy Live K60</b></div>
-<button onclick="build()" id="btn" class="w-full py-4 rounded-full font-black text-base text-black touch-btn" style="background:linear-gradient(135deg,var(--c1),var(--c2))">✦ BUILD MY APP NOW</button>
-<button onclick="openPay()" id="deployBtn" class="w-full mt-3 py-4 rounded-full font-black text-base text-black border-2 border-white/20 hidden" style="background:linear-gradient(135deg,var(--c1),var(--c2))">🚀 DEPLOY LIVE - K60 BSP Secure Pay 🔒</button>
-<p class="text-[10px] text-center text-white/40 mt-3">Works on phone, tablet, laptop • No rules • Any color • BSP Secure</p>
-</div>
-</div>
-
-<div class="bg-[#111] border-t lg:border-t-0 lg:border-l border-white/10 p-4 md:p-8">
-<div class="flex justify-between items-center mb-4"><span class="text-[11px] tracking-widest opacity-50">LIVE PREVIEW - ALL DEVICES</span><span class="text-[10px] bg-green-500 text-black px-2 py-1 rounded-full font-bold">● Responsive</span></div>
-<div id="preview" class="bg-white rounded-3xl overflow-hidden text-black w-full shadow-2xl max-w-[420px] mx-auto lg:mx-0 lg:max-w-full">
-<div id="head" class="p-5 text-white" style="background:linear-gradient(135deg,var(--c1),var(--c2))"><b>Your App Preview</b><p class="text-xs opacity-80">Any color, any idea, any device</p></div>
-<div class="p-6 text-center py-16"><div class="text-5xl">🦅</div><h3 class="font-black text-xl mt-4">Ready to build?</h3><p class="text-sm opacity-60 mt-2">1. Type idea 2. Pick color 3. Build & Deploy K60</p></div>
-</div>
-<div class="mt-6 bg-black/60 border border-white/10 rounded-2xl p-4"><b class="text-xs">🔒 BSP Secure Pay Flow:</b><p class="text-[11px] text-white/50 mt-1">Ref code auto-generates (AN-XXXX) • Pay to BSP 700012345678 • Tap I've Paid • App goes live instantly</p></div>
-</div>
-</div>
-</div>
-
-<div id="payModal" class="fixed inset-0 bg-black/90 backdrop-blur z-[100] hidden items-center justify-center p-4">
-<div class="bg-[#121212] border border-white/10 rounded-3xl w-full max-w-[420px] overflow-hidden">
-<div class="p-6 text-white" style="background:linear-gradient(135deg,var(--c1),var(--c2))">
-<div class="flex justify-between"><div><h3 class="font-black text-xl">🔒 BSP Secure Pay</h3><p class="text-xs opacity-80">BLESSED • K60 Deployment</p></div><button onclick="closePay()" class="bg-black/20 w-8 h-8 rounded-full">✕</button></div>
-</div>
-<div class="p-6">
-<div class="bg-white/[0.06] border border-yellow-500/30 rounded-2xl p-4 mb-4">
-<p class="text-[11px] tracking-widest text-white/40">SECURE REF CODE</p>
-<div class="flex justify-between items-center mt-2"><b id="refCode" class="text-2xl font-mono tracking-widest">AN-1234</b><button onclick="copyRef()" class="text-xs bg-white text-black px-3 py-1.5 rounded-full font-bold">Copy</button></div>
-</div>
-<div class="space-y-2 text-sm">
-<div class="flex justify-between bg-black rounded-xl p-3"><span class="text-white/60">App:</span><b id="payAppName">My App</b></div>
-<div class="flex justify-between bg-black rounded-xl p-3"><span class="text-white/60">Colors:</span><b id="payColors">Gold</b></div>
-<div class="flex justify-between bg-black rounded-xl p-3"><span class="text-white/60">Amount:</span><b>K60.00</b></div>
-<div class="flex justify-between bg-black rounded-xl p-3 border border-yellow-500/20"><span class="text-white/60">BSP Acc:</span><b>7000 1234 5678<br><span class="text-[10px] opacity-60">BLESSED PNG LTD</span></b></div>
-</div>
-<div class="mt-4 text-[11px] bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-3"><b>How to pay:</b><br>1. BSP Mobile / Internet<br>2. Transfer K60<br>3. Description = <b id="ref2">AN-1234</b><br>4. Tap I've Paid</div>
-<div class="grid grid-cols-2 gap-3 mt-6"><button onclick="closePay()" class="py-3.5 rounded-full bg-white/10 font-bold text-sm touch-btn">Cancel</button><button onclick="confirmPay()" class="py-3.5 rounded-full font-black text-sm text-black touch-btn" style="background:linear-gradient(135deg,var(--c1),var(--c2))">I've Paid ✓</button></div>
-</div>
-</div>
-</div>
-
 <script>
-let C1='#FFD700',C2='#B8860B',currentRef='';
-function pick(a,b,n){C1=a;C2=b;document.documentElement.style.setProperty('--c1',a);document.documentElement.style.setProperty('--c2',b);document.getElementById('dot').style.background=a;document.getElementById('cname').innerText=n;document.getElementById('head').style.background=`linear-gradient(135deg,${a},${b})`;document.getElementById('btn').style.background=`linear-gradient(135deg,${a},${b})`;}
-function useEx(t){document.getElementById('idea').value=t;build();}
-function build(){
-const idea=document.getElementById('idea').value||'My Awesome App';
-document.getElementById('preview').innerHTML=`<div class="p-5 text-white" style="background:linear-gradient(135deg,${C1},${C2})"><b>${idea.slice(0,30)}</b><p class="text-[11px] opacity-80">Built with your colors • Responsive</p></div><div class="p-4 grid gap-3"><div class="border-2 rounded-2xl p-4 flex justify-between items-center" style="border-color:${C1}"><div><b class="text-sm">Product 1</b><p class="text-xs opacity-60">Your style</p></div><button class="px-4 py-2 rounded-full text-white text-xs" style="background:${C1}">Add</button></div><div class="border-2 rounded-2xl p-4 flex justify-between items-center" style="border-color:${C2}"><div><b class="text-sm">Product 2</b><p class="text-xs opacity-60">Your colors</p></div><button class="px-4 py-2 rounded-full text-white text-xs" style="background:${C2}">Add</button></div><div class="rounded-2xl p-4 text-white flex justify-between items-center" style="background:linear-gradient(135deg,${C1},${C2})"><span class="font-bold text-sm">Cart</span><span class="bg-black text-white px-4 py-2 rounded-full text-xs">WhatsApp →</span></div></div><div class="p-4"><button onclick="openPay()" class="w-full py-3 rounded-full font-black text-sm text-black" style="background:linear-gradient(135deg,${C1},${C2})">🚀 DEPLOY LIVE K60 - BSP Secure Pay</button></div>`;
-document.getElementById('deployBtn').classList.remove('hidden');
-}
-function openPay(){
-const idea=document.getElementById('idea').value||'My App';
-currentRef='AN-'+Math.floor(1000+Math.random()*9000);
-document.getElementById('refCode').innerText=currentRef;
-document.getElementById('ref2').innerText=currentRef;
-document.getElementById('payAppName').innerText=idea.slice(0,25);
-document.getElementById('payColors').innerText=document.getElementById('cname').innerText;
-document.getElementById('payModal').classList.remove('hidden');
-document.getElementById('payModal').classList.add('flex');
-}
-function closePay(){document.getElementById('payModal').classList.add('hidden');document.getElementById('payModal').classList.remove('flex');}
-function copyRef(){navigator.clipboard.writeText(currentRef);alert('Copied: '+currentRef);}
-function confirmPay(){
-closePay();
-const idea=document.getElementById('idea').value||'myapp';
-const link=`https://${idea.toLowerCase().replace(/\s+/g,'').slice(0,15)}.blessed-png.netlify.app`;
-document.getElementById('preview').innerHTML=`<div class="p-8 text-center"><div class="w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl" style="background:linear-gradient(135deg,${C1},${C2})">✓</div><h2 class="font-black text-2xl mt-6">LIVE NOW!</h2><p class="text-sm opacity-60 mt-2">Deployed on all devices</p><div class="mt-6 bg-black text-white rounded-2xl p-4 text-left"><p class="text-[11px] opacity-50">LIVE LINK</p><b class="text-sm break-all" style="color:${C1}">${link}</b><p class="text-[11px] mt-2">Ref: ${currentRef} • K60 Paid • BSP Secure</p></div><button class="mt-6 w-full py-3 rounded-full font-bold text-black" style="background:linear-gradient(135deg,${C1},${C2})">Open Live App →</button></div>`;
-alert('🎉 Payment OK! Ref '+currentRef+' - App LIVE at '+link);
-}
+  // ---- Screen switching ----
+  function show(id) {
+    // "ask" means: open the SME Hub screen and jump to the photo card
+    var target = id === 'ask' ? 'sme' : id;
+    document.querySelectorAll('.screen').forEach(function (s) {
+      s.classList.toggle('active', s.id === target);
+    });
+    document.querySelectorAll('nav.bottom button[data-go]').forEach(function (b) {
+      b.classList.toggle('on', b.dataset.go === id || (id === 'ask' && b.classList.contains('plus')));
+    });
+    if (id === 'ask') {
+      document.getElementById('ask').scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }
+  document.querySelectorAll('[data-go]').forEach(function (el) {
+    el.addEventListener('click', function () { show(el.dataset.go); });
+  });
+
+  // ---- Sign-up ----
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var PHONE_RE = /^\+?[0-9\s-]{7,20}$/;
+  var signupBtn = document.getElementById('signupBtn');
+  var signupMsg = document.getElementById('signupMsg');
+
+  function setMsg(el, text, ok) {
+    el.className = 'msg ' + (ok ? 'ok' : 'err');
+    el.textContent = text;
+  }
+
+  signupBtn.addEventListener('click', async function () {
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+
+    if (!email && !phone) { setMsg(signupMsg, 'Type an email or a phone number first.', false); return; }
+    if (email && !EMAIL_RE.test(email)) { setMsg(signupMsg, 'That email does not look right. Check the spelling.', false); return; }
+    if (phone && !PHONE_RE.test(phone)) { setMsg(signupMsg, 'That phone number does not look right.', false); return; }
+
+    signupBtn.disabled = true;
+    setMsg(signupMsg, 'Saving your account...', true);
+    try {
+      var res = await fetch('/.netlify/functions/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, phone: phone })
+      });
+      var data = await res.json().catch(function () { return {}; });
+      if (res.ok) {
+        setMsg(signupMsg, data.message || 'Welcome! Your account is saved.', true);
+      } else {
+        setMsg(signupMsg, data.error || 'Sign-up did not work. Please try again.', false);
+      }
+    } catch (e) {
+      setMsg(signupMsg, 'No connection. Check your internet and try again.', false);
+    } finally {
+      signupBtn.disabled = false;
+    }
+  });
+
+  // ---- Photo + Ask AI ----
+  var photoInput = document.getElementById('photo');
+  var preview = document.getElementById('preview');
+  var questionInput = document.getElementById('question');
+  var askBtn = document.getElementById('askBtn');
+  var askMsg = document.getElementById('askMsg');
+  var answerBox = document.getElementById('answer');
+
+  // Shrinks the photo so it uploads quickly on slow phone data.
+  function shrinkImage(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var max = 1024;
+        var scale = Math.min(1, max / Math.max(img.width, img.height));
+        var w = Math.round(img.width * scale);
+        var h = Math.round(img.height * scale);
+        var canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        resolve(canvas.toDataURL('image/jpeg', 0.8));
+      };
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        reject(new Error('Could not read this picture.'));
+      };
+      img.src = url;
+    });
+  }
+
+  askBtn.addEventListener('click', async function () {
+    var file = photoInput.files && photoInput.files[0];
+    var question = questionInput.value.trim() || 'What is this item worth in Papua New Guinea?';
+
+    if (!file) { setMsg(askMsg, 'Choose a photo first.', false); return; }
+
+    askBtn.disabled = true;
+    answerBox.style.display = 'none';
+    setMsg(askMsg, 'Looking at your item...', true);
+    try {
+      var image = await shrinkImage(file);
+      preview.src = image;
+      preview.style.display = 'block';
+
+      var res = await fetch('/.netlify/functions/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: image, question: question })
+      });
+      var data = await res.json().catch(function () { return {}; });
+      if (res.ok && data.answer) {
+        askMsg.textContent = '';
+        answerBox.textContent = data.answer;
+        answerBox.style.display = 'block';
+      } else {
+        setMsg(askMsg, data.error || 'The AI could not answer right now. Please try again.', false);
+      }
+    } catch (e) {
+      setMsg(askMsg, 'Could not read this photo. Try another photo.', false);
+    } finally {
+      askBtn.disabled = false;
+    }
+  });
 </script>
-</body></html>
+</body>
+</html>
