@@ -60,8 +60,7 @@ exports.handler = async (event) => {
       return json(409, { error: 'This email or phone is already registered. You can continue.' });
     }
     if (!res.ok) {
-      const detail = await res.text();
-      return json(500, { error: 'Supabase said: ' + res.status + ' ' + detail.slice(0, 200) });
+      return json(500, { error: 'Sign-up did not work. Please try again.' });
     }
     return json(200, { message: 'Welcome! Your account is saved.' });
   } catch (e) {
